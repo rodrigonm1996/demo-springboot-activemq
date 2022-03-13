@@ -1,5 +1,7 @@
 package br.com.genesiscode.messaging.config;
 
+import java.util.Arrays;
+
 import javax.jms.ConnectionFactory;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
@@ -19,6 +21,7 @@ public class ActiveMQConfig {
 	public ConnectionFactory connectionFactory() {
 		ActiveMQConnectionFactory activeMQConnectionFactory = new ActiveMQConnectionFactory();
 		activeMQConnectionFactory.setBrokerURL(brokerUrl);
+        activeMQConnectionFactory.setTrustedPackages(Arrays.asList("br.com.genesiscode.messaging"));
 		return activeMQConnectionFactory;
 	}
 	
@@ -30,7 +33,7 @@ public class ActiveMQConfig {
 		return jmsTemplate;
 	}
 	
-    @Bean
+    @Bean(name = "jmsConnectionFactory")
     public DefaultJmsListenerContainerFactory jmsListenerContainerFactory(){
         DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
         factory.setConnectionFactory(connectionFactory());

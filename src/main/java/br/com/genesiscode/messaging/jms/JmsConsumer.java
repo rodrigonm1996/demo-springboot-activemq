@@ -14,7 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 public class JmsConsumer implements MessageListener {
 
 	@Override
-	@JmsListener(destination = "${active-mq.topic}")
+	@JmsListener(destination = "${active-mq.topic}", 
+	containerFactory = "jmsConnectionFactory")
 	public void onMessage(Message message) {
 		try {
 			ObjectMessage objMessage = (ObjectMessage) message;
